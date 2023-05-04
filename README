@@ -1,3 +1,9 @@
-The start of Dataless. 
+The start of Dataless.
 
 Using Twilio to get and receive SMS
+
+Tools used:
+Twilio and webhooks
+ngrok for public access to local dev route
+Google Maps direction api https://developers.google.com/maps/documentation/directions/start
+Python venv environment
