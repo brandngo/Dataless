@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, Response
+from flask import Flask, request, redirect, render_template, Response
 from twilio.twiml.messaging_response import MessagingResponse
 import logging
 import requests
@@ -6,7 +6,8 @@ import re
 import config
 import routes
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
+app.config["EXPLAIN_TEMPLATE_LOADING"] = True
 
 @app.route("/sms", methods=['GET', 'POST'])
 def sms_reply():
@@ -69,6 +70,10 @@ def test_reply():
     resp.message("The Robots are coming! Head for the hills!")
 
     return str(resp)
+
+@app.route("/", methods=['GET', 'POST'])
+def landing():
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
