@@ -1,0 +1,1 @@
+GMAPS_ROUTE = "https://maps.googleapis.com/maps/api/directions/json"
