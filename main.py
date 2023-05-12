@@ -1,15 +1,17 @@
 from flask import Flask, request, redirect, render_template, Response
+from flask_cors import CORS, cross_origin
 from twilio.twiml.messaging_response import MessagingResponse
-import logging
 import requests
 import re
 import config
 import routes
+import json
 
 app = Flask(__name__, template_folder='templates')
-app.config["EXPLAIN_TEMPLATE_LOADING"] = True
+CORS(app, support_credentials=True)
 
 @app.route("/sms", methods=['GET', 'POST'])
+@cross_origin(supports_credentials=True)
 def sms_reply():
     number = request.form['From']
     message_body = request.form["Body"]
@@ -31,11 +33,12 @@ def sms_reply():
     return Response(str(resp), mimetype="application/xml")
 
 @app.route("/websim", methods=["GET"])
+@cross_origin(supports_credentials=True)
 def sim_reply():
     orig = request.args["origin"]
     dest = request.args["dest"]
 
-    return "Your origin is %s and destination is %s. Then, %s" % (orig, dest, "".join(getDirections(orig, dest)))
+    return json.dumps({"data": "Your origin is %s and destination is %s. Then, %s" % (orig, dest, "".join(getDirections(orig, dest)))})
 
 def getDirections(origin, destination):
     gresp = requests.get(routes.GMAPS_ROUTE+"?origin="+origin+"&destination="+destination+"&mode=transit"+"&key="+config.GMAPS_API_KEY)
@@ -43,6 +46,7 @@ def getDirections(origin, destination):
     steps = []
     leave = arive = ""
     if gresp.status_code == 200:
+        app.logger.warning(gresp)
         gjson = gresp.json()["routes"][0]["legs"][0]
         arrive = gjson["arrival_time"]["text"]
         leave = gjson["departure_time"]["text"]
@@ -76,4 +80,4 @@ def landing():
     return render_template("index.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port="8080", debug=True)

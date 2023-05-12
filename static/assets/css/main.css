@@ -7,6 +7,42 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+
+.container {
+	display: flex;
+	flex-wrap: wrap;
+}
+  
+.left-element {
+	width: 50%;
+	/* Other styles for the left element */
+}
+  
+.right-element {
+	width: 50%;
+	/* Other styles for the right element */
+}
+  
+/* Media query for mobile devices */
+@media (max-width: 767px) {
+	.left-element,
+	.right-element {
+		width: 100%;
+	}
+}
+
+
+.phone-border {
+	border: 1px solid #000;
+	border-radius: 8px;
+	padding: 10px;
+	width: 300px;
+	height: 570px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+	position: relative;
+	min-height: 300px;
+}
+
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,
