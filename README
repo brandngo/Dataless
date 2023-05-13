@@ -1,14 +1,10 @@
-The start of Dataless.
+# Dataless
 
-Using Twilio to get and receive SMS
+Allows you to get useful web searches without mobile data capabilities
 
-Tools used:
-Twilio and webhooks
-ngrok for public access to local dev route
-Google Maps direction api https://developers.google.com/maps/documentation/directions/start
-Python venv environment
-Deployed using GCP App Engine
+[Try it here](https://modern-nation-385900.uk.r.appspot.com/)
 
-Phone # - (647) 360-4677
-KEYWORDS:
-bus_[ORIGIN]_[DEST]
+## Technical
+
+- Made using Flask, GCP App Engine, and Twilio
+- Currently only supports bus queries using "bus_[ORIGIN]_[DESTINATION]"
